@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}Expense Listings{% endblock %}
+
+{% block content %}
+<style>
+    /* Main Content */
+    .main-content {
+        padding: 2rem; /* Adjusted to fit within base.html's container */
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        background: #ffffff;
+        padding: 1rem 2rem;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .topbar h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2b2d42;
+        margin: 0;
+        text-transform: capitalize;
+    }
+
+    .topbar .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .topbar .user-info img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 2px solid #00ddeb;
+    }
+
+    .topbar .user-info span {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #2b2d42;
+    }
+
+    /* Cards Section */
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-left: 5px solid #00ddeb;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #2b2d42;
+        margin-bottom: 1rem;
+    }
+
+    .card p {
+        font-size: 1.2rem;
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .card .btn {
+        margin-top: 1.5rem;
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #00ddeb, #4680ff);
+        border: none;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #00b7c3, #3b70e0);
+        transform: scale(1.05);
+    }
+
+    /* Icons in Cards */
+    .card i {
+        font-size: 2rem;
+        color: #00ddeb;
+        margin-bottom: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .topbar {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        .topbar h1 {
+            font-size: 1.6rem;
+        }
+
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        .main-content {
+            padding: 1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .card {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<!-- Main Content -->
+<div class="main-content " style="margin-left: 10rem;">
+    <!-- Topbar -->
+    <div class="topbar">
+        <h1>Welcome, {{user}}</h1>
+       
+    </div>
+
+    <!-- Cards Section -->
+    <div class="cards">
+        <div class="card">
+            <i class="fas fa-users"></i>
+            <h3>Total Groups</h3>
+            <p>{{g}}</p>
+            <a href="{% url 'group_list' %}" class="btn btn-primary">View Groups</a>
+        </div>
+        <div class="card">
+            <i class="fas fa-dollar-sign"></i>
+            <h3>Amount Lent</h3>
+            <p>${{e}}</p>
+            <a href="{% url 'lent_expense' %}" class="btn btn-primary">View Expenses</a>
+        </div>
+        <div class="card">
+            <i class="fas fa-clock"></i>
+            <h3>Pending Settlements</h3>
+            <p>${{es}}</p>
+            <a href="{% url 'pending_expense' %}" class="btn btn-primary">View Pending</a>
+        </div>
+        <div class="card">
+            <i class="fas fa-user-edit"></i>
+            <h3>Profile</h3>
+            <p>Update your profile information</p>
+            <a href="{%url 'userupdate'%}" class="btn btn-primary">Edit Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

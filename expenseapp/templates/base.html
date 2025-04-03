@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Splitwise Dashboard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #e9ecef, #a8e1e6);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            width: 100%;
+            background: linear-gradient(90deg, #2b2d42, #495057);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar .logo {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s ease;
+        }
+
+        .navbar .logo:hover {
+            color: #00ddeb;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li a {
+            color: #e9ecef;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #ffffff;
+            background: #00ddeb;
+            box-shadow: 0 2px 8px rgba(0, 221, 235, 0.4);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(to bottom, #343a40, #212529);
+            color: white;
+            padding: 2rem 1rem;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            margin-top: 4.5rem; /* Adjusted for navbar height */
+            transition: width 0.3s ease;
+        }
+
+        .sidebar h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar a {
+            color: #e9ecef;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background: #495057;
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+
+        .sidebar .active {
+            background: #00ddeb;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 221, 235, 0.4);
+        }
+
+        .sidebar a i {
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .container {
+            flex: 1;
+            padding: 6rem 2rem 2rem; /* Adjusted padding for fixed navbar */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .navbar ul {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-top: 0;
+                padding: 1rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar .logo {
+                font-size: 1.5rem;
+            }
+
+            .navbar ul li a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <a href="{% url 'dashboard' %}" class="logo">Splitwise</a>
+            <ul>
+                <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Dashboard</h2>
+            <a href="{% url 'dashboard' %}" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="{% url 'group_list' %}"><i class="fas fa-users"></i> Groups</a>
+            <a href="{% url 'expense_user_list' %}"><i class="fas fa-wallet"></i> Expenses</a>
+            <a href="{% url 'settlement_user_list' %}"><i class="fas fa-handshake"></i> Settlements</a>
+            <a href="{% url 'userprofile'%}"><i class="fas fa-user"></i> Profile</a>
+            <!-- <a href="#"><i class="fas fa-cog"></i> Settings</a> -->
+        </div>
+
+        <!-- Main Content -->
+        <div class="container ">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

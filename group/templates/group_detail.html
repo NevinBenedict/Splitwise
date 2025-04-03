@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #a99ed4, #70f5ff);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 70%;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 0 0 50% 50%;
+            z-index: -1;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        .navbar {
+            width: 100%;
+            background: linear-gradient(90deg, #2b2d42, #495057);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar .logo {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s ease;
+        }
+
+        .navbar .logo:hover {
+            color: #00ddeb;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+        }
+
+        .navbar ul li a {
+            color: #e9ecef;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            color: #ffffff;
+            background: #00ddeb;
+            box-shadow: 0 2px 8px rgba(0, 221, 235, 0.4);
+        }
+
+        /* Background Overlay */
+        
+
+        /* Group Container */
+        .group-container {
+            background: rgba(220, 229, 232, 0.7);
+            padding: 2.5rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            margin-top: 4.5rem; /* Adjusted for navbar */
+        }
+
+        .group-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #6b48ff, #00ddeb);
+            z-index: 1;
+        }
+
+        /* Group Header */
+        .group-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .group-header h1 {
+            color: #6b48ff;
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .group-header p {
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* Group Details */
+        .group-details {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid rgba(232, 236, 239, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-label {
+            color: #6b48ff;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Members and Expenses Lists */
+        .members-list, .expenses-list {
+            margin-top: 2rem;
+        }
+
+        .members-list h3, .expenses-list h3 {
+            color: #6b48ff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .member, .expense-item {
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(232, 236, 239, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .member:hover, .expense-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .member span, .expense-item h3 {
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: capitalize;
+        }
+
+        .expense-item p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .small-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .small-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        .back-btn { background: linear-gradient(45deg, #4a3aff, #6b48ff); }
+        .back-btn:hover { background: linear-gradient(45deg, #392ecc, #5a3aff); }
+
+        .leave-btn { background: linear-gradient(45deg, #e63946, #ff5555); }
+        .leave-btn:hover { background: linear-gradient(45deg, #cc2e38, #e63946); }
+
+        .add-member-btn { background: linear-gradient(45deg, #2ecc71, #54d98c); }
+        .add-member-btn:hover { background: linear-gradient(45deg, #27ae60, #48c774); }
+
+        .add-expense-btn { background: linear-gradient(45deg, #1e90ff, #00ddeb); }
+        .add-expense-btn:hover { background: linear-gradient(45deg, #187bcd, #00b7c3); }
+
+        .delete-group-btn { background: linear-gradient(45deg, #e63946, #ff5555); }
+        .delete-group-btn:hover { background: linear-gradient(45deg, #cc2e38, #e63946); }
+
+        .kickout-btn {
+            background: linear-gradient(45deg, #e63946, #ff5555);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .kickout-btn:hover {
+            background: linear-gradient(45deg, #cc2e38, #e63946);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+    .expense-item {
+        display: flex;
+        justify-content: space-between; /* Aligns content to the left and form to the right */
+        align-items: center; /* Vertically aligns items */
+        padding: 1rem 1.5rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        margin-bottom: 0.75rem;
+        border: 1px solid rgba(232, 236, 239, 0.8);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .expense-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .expense-details {
+        flex: 1; /* Takes up available space */
+    }
+
+    .settlement-form {
+        display: flex;
+        align-items: center; /* Vertically aligns the input and button */
+        gap: 0.5rem; /* Adds spacing between the input and button */
+    }
+
+    .settlement-input {
+        max-width: 100px; /* Limits the width of the input field */
+        text-align: right; /* Aligns text inside the input field to the right */
+    }
+
+    .add-expense-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+
+        /* Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.25; transform: scale(1.02); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .group-container {
+                padding: 1.5rem;
+                margin-top: 5rem;
+            }
+
+            .group-header h1 {
+                font-size: 2rem;
+            }
+
+            .detail-item, .member, .expense-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 1rem;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .small-btn {
+                width: 100%;
+                padding: 0.75rem;
+            }
+
+            .kickout-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .group-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .detail-label, .detail-value, .member span, .expense-item h3 {
+                font-size: 0.9rem;
+            }
+
+            .members-list h3, .expenses-list h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar (Unchanged) -->
+    <nav class="navbar">
+        <a href="#" class="logo">Splitwise</a>
+        <ul>
+            <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="{% url 'group_list' %}"><i class="fas fa-users"></i> Groups</a></li>
+            <li><a href="{% url 'expense_list' group.id %}"><i class="fas fa-wallet"></i> Group Expenses</a></li>
+            <li><a href="{% url 'settlement_list' group.id %}"><i class="fas fa-handshake"></i> Group Settlements</a></li>
+            <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="group-container">
+        <div class="group-header">
+            <h1>{{ group.name }}</h1>
+           
+        </div>
+        <div class="group-details">
+            <div class="detail-item">
+                <span class="detail-label">Group Name</span>
+                <span style="text-transform: capitalize;" class="detail-value">{{ group.name }}</span>
+            </div>
+            {% if group.description %}
+            <div class="detail-item">
+                <span class="detail-label">Description</span>
+                <span style="text-transform: capitalize;" class="detail-value">{{ group.description }}</span>
+            </div>
+            {% endif %}
+            {% if group.created_at %}
+            <div class="detail-item">
+                <span class="detail-label">Created On</span>
+                <span class="detail-value">{{ group.created_at|date:"F d, Y" }}</span>
+            </div>
+            {% endif %}
+            {% if group.created_by %}
+            <div class="detail-item">
+                <span class="detail-label">Created By</span>
+                <span class="detail-value" style="text-transform: capitalize;">{{ group.created_by }}</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="members-list">
+            <h3>Members</h3>
+            {% for member in group.members.all %}
+                <div class="member">
+                    <span style="text-transform: capitalize;">{{ member.username }}</span>
+                    {% if request.user == group.created_by and member != request.user %}
+                        <form action="{% url 'delete_member' group.id member.id %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="kickout-btn">Kick Out</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No members in this group.</p>
+            {% endfor %}
+        </div>
+        <div class="expenses-list">
+            <h3>Expenses</h3>
+            {% for expense in data %}
+                <div class="expense-item">
+                    <div class="expense-details">
+                        <h3 style="text-transform: capitalize;">{{ expense.expense }}</h3>
+                        <p style="text-transform: capitalize;">Lenter: {{ expense.expense.paid_by }}</p>
+                        <p>Amount owed: {{ expense.amount_owed }}</p>
+                        <p>Balance to Pay: {{ expense.balance }}</p>
+                    </div>
+                    {%if expense.balance > 0 %}
+                        <form action="{% url 'settlement' expense.id %}" method="post" class="settlement-form">
+                            {% csrf_token %}
+                            <input type="number" min="0" max="{{ expense.balance }}" class="form-control settlement-input" name="amount" placeholder="enter the amount" required>
+                            <button type="submit" class="small-btn add-expense-btn">Paynow</button>
+                        </form>
+                    {%endif%}
+                </div>
+            {% empty %}
+                <p>No expenses found.</p>
+            {% endfor %}
+        </div>
+        <div class="button-container">
+            {% if request.user != group.created_by %}
+            <form action="{% url 'delete_member' group.id request.user.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="small-btn leave-btn">Leave</button>
+            </form>
+            {% endif %}
+            {% if request.user == group.created_by %}
+                <a href="{% url 'addmember' group.id %}" class="small-btn add-member-btn">Add Member</a>
+                <form action="{% url 'group_delete' group.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="small-btn delete-group-btn">Delete Group</button>
+                </form>
+            {% endif %}
+            <a href="{% url 'add_expense' group.id %}" class="small-btn add-expense-btn">Add Expense</a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

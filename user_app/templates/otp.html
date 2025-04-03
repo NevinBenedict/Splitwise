@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f3e7; /* Light beige background */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .otp-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Close button (optional, can be removed if not needed) */
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.2rem;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        /* Icon placeholder */
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        /* OTP input field */
+        .otp-input {
+            margin-bottom: 1.5rem;
+        }
+
+        .otp-input input {
+            width: 100%;
+            max-width: 200px;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 1.2rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .otp-input input:focus {
+            outline: none;
+            border-color: #ff9500;
+        }
+
+        /* Change email link */
+        .change-email {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .change-email a {
+            color: #ff9500;
+            text-decoration: underline;
+        }
+
+        /* Verify button */
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #ff9500;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #e08500;
+        }
+
+        /* Resend code link */
+        .resend-code {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #333;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .timer {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        /* Error styling */
+        .errorlist {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="otp-card">
+       
+        <div class="icon">🔑📧</div>
+        <h2>Verify Your Email Address</h2>
+        <p>Please enter the 4-digit code sent to your email address.</p>
+        
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="otp-input">
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <button type="submit">Verify Email</button>
+            <a href="#" class="resend-code">Resend Code</a>
+            
+        </form>
+        
+    </div>
+    
+</div>
+</body>
+</html>
