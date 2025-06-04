@@ -17,6 +17,7 @@ class Registeration (View):
 
     def post(self,request):
         otp=str(random.randint(1000,9999))
+        print(otp)
         
         request.session['user'] ={
             'username':request.POST['username'],

@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'user_app',
     'group',
     'expenseapp',
+    'api',
+    'rest_framework'
+    
 ]
 
 MIDDLEWARE = [
@@ -138,6 +141,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'nevinbenedict07@gmail.com'
 EMAIL_HOST_PASSWORD = "psbp fjch znit yvge"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

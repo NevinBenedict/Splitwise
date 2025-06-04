@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from user_app.views import *
 from group.views import *
 from expenseapp.views import *
@@ -49,7 +49,8 @@ urlpatterns = [
     path('expense/settlementuserlist/',SettlementUserListView.as_view(),name='settlement_user_list'),
     path('expense/lentexpense/',LentSplitView.as_view(),name='lent_expense'),
     path('expense/delete/<int:pk>',ExpenseDelete.as_view(),name='delete_expense'),
-    path('expense/notifymail/<int:pk>/',Notifymail.as_view(),name='notify_mail')
+    path('expense/notifymail/<int:pk>/',Notifymail.as_view(),name='notify_mail'),
+    path('api/',include('api.urls'))
     
 
 ]
